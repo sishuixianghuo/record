@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">指尖记录</string>
+    <string name="back">回撤</string>
+    <string name="check_update">检测升级</string>
+    <string name="suspension_bar">开启悬浮条</string>
+    <string name="set_key_code">按键设置</string>
+    <string name="get_more_fun">获取更多高级功能</string>
+
+
+    <string name="xuan_fu_chuang_wei_kai_qi">悬浮窗权限未开启</string>
+
+    <string name="judge_floating_frame_">检测到您的手机没有开启悬浮窗权限，可能会影响对话框和悬浮窗的显示</string>
+    <string name="update">升级</string>
+    <string name="next_time">下次再说</string>
+    <string name="confirm">确定</string>
+
+
+</resources>

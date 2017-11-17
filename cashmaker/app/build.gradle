@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "com.cashmaker.android"
+        minSdkVersion 19
+        targetSdkVersion 21
+        versionCode 100
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                abiFilters 'armeabi'
+                cppFlags "-frtti -fexceptions -std=c++14  -DJSON_IS_AMALGAMATION"
+                arguments "-DANDROID_ARM_NEON=TRUE", "-DANDROID_TOOLCHAIN=clang"
+            }
+        }
+    }
+
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['./libs/jni']
+        }
+    }
+
+    signingConfigs {
+
+        config {
+            storeFile file('../app/jks/cashmaker.jks')
+            storePassword 'qbA@HLEPw^D9FSG5'
+            keyAlias 'cashmaker'
+            keyPassword 'qbA@HLEPw^D9FSG5'
+            v2SigningEnabled false //此处开启/关闭V2签名
+        }
+    }
+
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.config  //应用签名配置
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.config  //应用签名配置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+
+
+    //网路请求模块
+    compile 'io.reactivex:rxjava:1.2.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.lzy.net:okgo:2.1.4'
+    compile 'com.lzy.net:okrx:0.1.2'
+    compile 'com.lzy.net:okserver:1.1.3'
+
+}
+repositories {
+    mavenCentral()
+}
